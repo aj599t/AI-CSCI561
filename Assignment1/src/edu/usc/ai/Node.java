@@ -2,13 +2,16 @@ package edu.usc.ai;
 
 import java.util.Comparator;
 
+
 public class Node implements Comparator<Node> {
 	
-	int nodenum ;					//node number
-	String state = null;		//node name
-	int g = 0;				//path cost
-	int depth = 0;				
-	Node parent = null;
+	private int nodenum ;					//node number
+	private String state = null;		//node name
+	private int g = 0;				//path cost
+	private int depth = 0;				
+	private Node parent = null;
+	private int h = 0;
+	private long timestamp= 0;
 	
 	public Node(){
 		
@@ -29,10 +32,24 @@ public class Node implements Comparator<Node> {
 		this.state=state;
 		
 	}
+	public Node(int nodenum, int h, String state){
+		this.nodenum=nodenum;
+		this.state=state;
+		this.h=h;
+		
+	}
 	public Node(int nodenum, String state, int g){
 		this.nodenum=nodenum;
 		this.state=state;
 		this.g=g;
+		
+	}
+	
+	public Node(int nodenum, String state, int g, long timestamp){
+		this.nodenum=nodenum;
+		this.state=state;
+		this.g=g;
+		this.timestamp=timestamp;
 		
 	}
 	
@@ -88,9 +105,26 @@ public class Node implements Comparator<Node> {
 
 	@Override
 	public int compare(Node o1, Node o2) {
-		// TODO Auto-generated method stub
+		if((((Node)o1).getG() - ((Node)o2).getG()) == 0)
+			return (int) (((Node)o1).getTimestamp() - ((Node)o2).getTimestamp());
 		return ((Node)o1).getG() - ((Node)o2).getG();
 	
+	}
+
+	public int getH() {
+		return h;
+	}
+
+	public void setH(int h) {
+		this.h = h;
+	}
+	
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 
